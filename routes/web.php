@@ -22,3 +22,5 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/employees', [App\Http\Controllers\EmployeeController::class, 'index'])->name('employees.index');
+Route::get('/employees/create', [App\Http\Controllers\EmployeeController::class, 'create'])->name('employees.create');
+Route::post('/employees', [App\Http\Controllers\EmployeeController::class, 'store'])->name('employees.store');
