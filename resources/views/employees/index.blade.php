@@ -19,6 +19,7 @@
                                 <th>Salario</th>
                                 <th>Edad</th>
                                 <th>Esta activo</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,6 +30,9 @@
                                 <td>{{ $employee->salary }}</td>
                                 <td>{{ $employee->age }}</td>
                                 <td>{{ $employee->is_active ? 'SI' : 'NO' }}</td>
+                                <td>
+                                    <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-primary mb-3">Editar Empleado</a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
