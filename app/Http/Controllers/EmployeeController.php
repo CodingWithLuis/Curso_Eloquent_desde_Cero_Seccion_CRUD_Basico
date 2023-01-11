@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreEmployeeRequest;
+use App\Http\Requests\UpdateEmployeeRequest;
 use App\Models\Employee;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,25 +23,16 @@ class EmployeeController extends Controller
         return view('employees.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreEmployeeRequest $request): RedirectResponse
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'salary' => 'required|numeric',
-            'age' => 'required|integer',
-            'hire_date' => 'date',
-            'is_active' => 'nullable|boolean'
-        ]);
-
-        Employee::create([
-            'name' => $data['name'],
-            'salary' => $data['salary'],
-            'age' => $data['age'],
-            'hire_date' => $data['hire_date'],
-            'is_active' => $data['is_active'],
-        ]);
+        Employee::create($request->validated());
 
         return redirect()->route('employees.index');
+    }
+
+    public function show(Employee $employee): View
+    {
+        return view('employees.show', compact('employee'));
     }
 
     public function edit(Employee $employee): View
@@ -47,30 +40,17 @@ class EmployeeController extends Controller
         return view('employees.edit', compact('employee'));
     }
 
-    public function update(Request $request, Employee $employee): RedirectResponse
+    public function update(UpdateEmployeeRequest $request, Employee $employee): RedirectResponse
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'salary' => 'required|numeric',
-            'age' => 'required|integer',
-            'hire_date' => 'date',
-            'is_active' => 'nullable|boolean'
-        ]);
-
-        if (empty($request->input('is_active'))) {
-            $is_active = false;
-        } else {
-            $is_active = true;
-        }
-
-        $employee->update([
-            'name' => $data['name'],
-            'salary' => $data['salary'],
-            'age' => $data['age'],
-            'hire_date' => $data['hire_date'],
-            'is_active' => $is_active,
-        ]);
+        $employee->update($request->validated());
 
         return redirect()->route('employees.index');
+    }
+
+    public function destroy(Employee $employee): RedirectResponse
+    {
+        $employee->delete();
+
+        return back();
     }
 }
