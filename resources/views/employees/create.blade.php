@@ -38,8 +38,8 @@
                             <input type="number" name="age" class="form-control" id="age" aria-describedby="age">
                         </div>
                         <div class="mb-3">
-                            <label for="hire_date" class="form-label">Fecha Contratation</label>
-                            <input type="date" name="hire_date" class="form-control" id="hire_date" aria-describedby="hire_date">
+                            <label for="hire_date" class="form-label">Fecha Contratación</label>
+                            <input type="text" name="hire_date" class="form-control date" id="hire_date" aria-describedby="hire_date" readonly>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -49,3 +49,10 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+<script>
+    flatpickr('.date', {
+        dateFormat: 'd/m/Y'
+    })
+</script>
+@endpush
