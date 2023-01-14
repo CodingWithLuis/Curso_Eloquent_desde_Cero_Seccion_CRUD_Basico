@@ -30,3 +30,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Route::delete('/employees/{employee}', [App\Http\Controllers\EmployeeController::class, 'destroy'])->name('employees.destroy');
 //
 Route::resource('employees', EmployeeController::class);
+
+
+Route::get('/archived_employees', [App\Http\Controllers\ArchivedEmployeesController::class, 'index'])
+    ->name('archived_employees.index');
+
+Route::post('/archived_employees/{id}/restore', [App\Http\Controllers\ArchivedEmployeesController::class, 'restore'])
+    ->name('archived_employees.restore');
+
+Route::post('/archived_employees/{id}/forceDelete', [App\Http\Controllers\ArchivedEmployeesController::class, 'forceDelete'])
+    ->name('archived_employees.forceDelete');

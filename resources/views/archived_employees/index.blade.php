@@ -5,13 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Listado de Empleados</div>
+                <div class="card-header">Listado de Empleados Archivados</div>
 
                 <div class="card-body">
-
-                    <a href="{{ route('employees.create') }}" class="btn btn-success mb-3">Nuevo Empleado</a>
-
-                    <a href="{{ route('archived_employees.index') }}" class="btn btn-danger mb-3">Empleados Archivados</a>
 
                     <table class="table table-bordered table-striped">
                         <thead>
@@ -33,13 +29,15 @@
                                 <td>{{ $employee->age }}</td>
                                 <td>{{ $employee->is_active ? 'SI' : 'NO' }}</td>
                                 <td>
-                                    <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-primary mb-3">Editar Empleado</a>
-                                    <a href="{{ route('employees.show', $employee->id) }}" class="btn btn-success mb-3">Ver datos Empleado</a>
 
-                                    <form method="POST" onsubmit="confirm('Estas seguro que deseas eliminar el dato?')" action="{{ route('employees.destroy', $employee->id) }}">
+                                    <form method="POST" onsubmit="confirm('Estas seguro que deseas restaurar el dato?')" action="{{ route('archived_employees.restore', $employee->id) }}">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                                        <input type="hidden" name="_method" value="DELETE" />
-                                        <input type="submit" class="btn btn-danger" value="Eliminar" />
+                                        <input type="submit" class="btn btn-danger" value="Restaurar" />
+                                    </form>
+
+                                    <form method="POST" onsubmit="confirm('Estas seguro que deseas eliminar permanentemente el dato?')" action="{{ route('archived_employees.forceDelete', $employee->id) }}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                        <input type="submit" class="btn btn-warning" value="Eliminar" />
                                     </form>
                                 </td>
                             </tr>
