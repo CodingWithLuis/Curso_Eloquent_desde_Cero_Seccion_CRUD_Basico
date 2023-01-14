@@ -26,6 +26,8 @@ class EmployeeController extends Controller
     {
         Employee::create($request->validated());
 
+        // Estamos usando un observer para enviar un correo electronico
+
         return redirect()->route('employees.index');
     }
 
